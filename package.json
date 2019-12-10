@@ -1,0 +1,29 @@
+{
+    "name": "dynamic-webserver",
+    "version": "0.0.0",
+    "description": "Dynamic Web Server using Node JS",
+    "author": {
+        "name": "Shijun Yang",
+        "email": "yang7656@stthomas.edu"
+    },
+    "contributors": [
+        {
+            "name": "Shijun Yang",
+            "email": "yang7656@stthomas.edu"
+        },
+        {
+            "name": "Luca Comba",
+            "email": "comb6457@stthomas.edu"
+        }
+    ],
+    "main": "eserver.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yang7656/CISC375-RESTful"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "sqlite3": "^4.1.0",
+        "xml-js": "^1.6.11"
+    }
+}
