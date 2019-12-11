@@ -87,7 +87,7 @@
 				<div class="six columns" v-else>
 					<div style="height: 29px"></div>
 					<!-- SEARCH BOX -->
-					<input type="text" height="50" class="searchbox" name="box" v-model="inputSearch" placeholder="Type a location" v-on:keyup.enter="Search">
+					<input type="text" height="50" name="box" class="searchbox" v-model="inputSearch" placeholder="Type a location" v-on:keyup.enter="Search">
 				</div>
 				<div class="two columns u-pull-right">
 					<div style="height: 29px"></div>
@@ -98,7 +98,7 @@
 
 			<div class="row">
 				<div class="twelve columns">
-					<div style="margin-top: 40px"></div>
+					<div style="margin-top: 20px"></div>
 					<div id="mapid"></div>
 				</div>
 			</div>
@@ -107,18 +107,26 @@
 				<div class="twelve columns">
 					<!-- SEARCH TABLE -->
 					<table style="width:100%">
-					  <thead>
-					    <th>Date</th>
-					    <th>Time</th>
-					    <th>Incident</th>
-					    <th>Neighborhood</th>
-					  </thead>
-					  <tbody>
-					    <td v-for="crime in stpaulcrimes">{{crime.date}}</td>
-					    <td v-for="crime in stpaulcrimes">{{crime.time}}</td>
-					    <td v-for="crime in stpaulcrimes">{{crime.incident}}</td>
-					    <td v-for="crime in stpaulcrimes">{{crime.neighborhood_number}}</td>
-					  </tbody>
+					    <thead>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Block</th>
+                            <th>Incident type</th>
+                            <th>Incident</th>
+                            <th>Neighborhood name</th>
+                            <th>Police grid</th>
+					    </thead>
+					    <tbody>
+                            <tr v-for="crime in stpaulcrimes" v-for="neighbor in Neighborhoods" v-for="code in Codes">
+                                <td>{{crime.date}}</td>
+                                <td>{{crime.time}}</td>
+                                <td>{{crime.block}}</td>
+                                <td>{{Codes['C'+crime.code]}}</td>
+                                <td>{{crime.incident}}</td>
+                                <td>{{Neighborhoods['N'+crime.neighborhood_number]}}</td>
+                                <td>{{crime.police_grid}}</td>
+                            </tr>
+					    </tbody>
 					</table>
 				</div>				
 			</div>
@@ -130,7 +138,6 @@
 				<p>For CISC 375</p>
 			</div>
 		</div>
-
 	</div>
 
 </body>
