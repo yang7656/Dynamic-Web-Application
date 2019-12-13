@@ -254,7 +254,7 @@ function Search(event) {
 function SearchUpper (event) {
     
     //var stpaulapi = 'http://cisc-dean.stthomas.edu:8000/incidents?';
-    var stpaulapi = crime_api_url+'/incidents?';
+    //var stpaulapi = crime_api_url+'/incidents?';
     var tem2 = {};
     var tem1 = {};
     var tem = app.stpaulcrimes;
@@ -286,7 +286,7 @@ function SearchUpper (event) {
             
             var keyH = parseInt(tem[key].time.split(':')[0]),
                 keyM = parseInt(tem[key].time.split(':')[1]);
-
+            
             if (keyH > startH && keyH < endH) {
                 tem[key] = app.stpaulcrimes[key];
             } 
@@ -329,9 +329,7 @@ function SearchUpper (event) {
         }
     }
     
-    app.stpaulcrimes = tem2;
-    
-    
+    app.stpaulcrimes = tem2;    
     
     
     
