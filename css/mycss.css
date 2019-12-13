@@ -4,6 +4,10 @@
 	font-family: 'Contrail One', cursive;
 }
 
+.samefont {
+	font-family: 'Contrail One', cursive;
+}
+
 a {
 	color: black;
 	text-decoration: none;
@@ -61,8 +65,44 @@ input[type="text"]{
 	height: 50px;
 }
 
+.checkbox {
+	border-style: solid;
+	border-width: 1px;
+	padding-left: 5px;
+	color: grey;
+}
+
+.checkbox:hover {
+	color: black;
+}
+
+#buttonUpper {
+	margin: 0;
+	margin-top: 15px;
+	text-align: center;
+	background-color: #fcba03;
+}
+
 /*CSS FOR MAP*/
 
 #mapid {
 	height: 40em; 
 }
+
+/* ON TABLE*/
+
+#tableCrime:hover {
+	cursor: grab;
+}
+
+#tableCrime td:hover{
+	background-color: rgba(252, 3, 82,0.5);
+}
+
+/*ABOUT PAGE*/
+
+.logos {
+	max-width: 250px;
+    height:auto;
+}
+

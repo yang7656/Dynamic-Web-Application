@@ -1,7 +1,7 @@
 {
   "name": "city-crime",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web Site to show crimes in St. Paul",
   "main": "index.js",
   "dependencies": {
     "leaflet": "^1.6.0"
