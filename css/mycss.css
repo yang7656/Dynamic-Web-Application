@@ -101,8 +101,15 @@ input[type="text"]{
 
 /*ABOUT PAGE*/
 
-.logos {
-	max-width: 250px;
-    height:auto;
+#leafletlogo {
+	margin-top: 25%;
 }
 
+#skeletonlogo {
+	margin-top: 10%;
+}
+
+#nominatimtext {
+	font-family: Helvetica;
+	text-align: center;
+}

@@ -330,6 +330,7 @@ function SearchUpper(event) {
             crimeSelected.push($('.crime_option')[i].value);
         }
     }
+    
     // what neighborhoods are selected
     for (let j = 0; j < $('.neighbor_option').length; j++) {
         if ($('.neighbor_option')[j].checked) {

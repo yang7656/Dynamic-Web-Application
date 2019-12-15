@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Crimes Searcher</title>
+	<title>About Crime Searcher</title>
 	<meta name="description" content="Make your search into crimes occurred in St. Paul">
 	<meta name="author" content="Luca and Shijun">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,7 @@
 				
 				<div class="u-pull-right" style="font-size: 18px">
 					<a href="about.html"><h3 style="color: black">About</h3></a>
-					<a href="index.html">Home</a>
+					<a href="index.html"><h2>Home</h2></a>
 				</div>
 				<h1 class="u-pull-left">Crime in St. Paul</h1>
 			</div>
@@ -48,17 +48,17 @@
 				<h1 style="font-size: 100px; text-align: center"> About us</h1>
 			</div>
 		</div>
-		<div class="row" style="margin-top: 100px">
+		<div class="row" style="margin-top: 20px">
 			<div class="four columns">
 				<h1>Shijun</h1><br>
-				<img src="images/Shijun.jpg" height="auto" width="200px">
+				<img src="images/shijun.jpg" height="auto" width="200px">
 				<p>Web Developer</p>
 			</div>
 			<div class="eight columns">
 				<h3 class="samefont">Biography</h3><p>Undergraduate student at St. Thomas University. Computer Science Major.</p><br>
 			</div>
 		</div>
-		<div class="row" style="margin-top: 100px">
+		<div class="row" style="margin-top: 20px">
 			<div class="four columns">
 				<h1>Luca</h1><br>
 				<img src="images/lucaprofile.jpeg">
@@ -70,31 +70,74 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class=" twelve columns">
+				<h1 style="text-align: center">ABOUT THE WEB APP</h1>
+			</div>
 			<div class="twelve columns">
-				<h1 style="text-align: center;">API USED FOR THIS WEBSITE</h1>
+				<h4 class="samefont">API USED FOR THIS WEBSITE</h4>
 			</div>
 		</div>
 		<div class="row">
-			<div class="four columns logos">
-				<img src="images/logo.png">
-			</div>
-			<div class="four columns logos">
-				<img src="images/skeleton.jpg">
-			</div>
-			<div class="four columns logos">
-				<img src="images/nominatim.svg"><label>NOMINATIM</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="twelve columns">
+			<div class="three columns">
+				<div class="divlogo">
+					<a href="https://leafletjs.com/">
+						<img src="images/logo.png" class="u-max-full-width" id="leafletlogo">
+					</a>
+				</div>
 				
+			</div>
+			<div class="three columns">
+				<div class="divlogo">
+					<a href="http://getskeleton.com/">
+						<img src="images/skeleton.jpg" class="u-max-full-width" id="skeletonlogo">
+					</a>
+				</div>
+				
+			</div>
+			<div class="three columns">
+				<div>
+					<a href="https://wiki.openstreetmap.org/wiki/Nominatim">
+						<img src="images/nominatim.svg" class="u-max-full-width"><label id="nominatimtext">Nominatim</label>
+					</a>
+				</div>
+			</div>
+			<div class="three columns">
+				<a href="https://github.com/yang7656/CISC375-RESTful">
+					<img src="images/policecar.jpg" class="u-max-full-width" style="margin-top: 12%"><label id="nominatimtext">St. Paul Crime API</label>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns" style="margin: 5rem 5rem">
+				We use Leaflet API for creating the map and add all the feature to the map, like markers and panning options.<br>
+				We also use Nominatim API for searching address that user can input through the search box or by clicking at a specific crime.<br>
+				Our data come from a Restful Api that we built. The data come from the <a href="https://information.stpaul.gov/Public-Safety/Crime-Incident-Report-Dataset/gppb-g9cg">St. Paul Crime Dataset</a>. We access the data through a simple query that permit the website to populate the map with the neighborhood marker and the crime table.<br>
+				We based our website design on the CSS framework Skeleton, because it is easy to use and mobile friendly.<br>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns">
+				<h5 class="samefont">Video Tutorial</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns">
+				<h5 class="samefont">Some Interesting finding in our data</h5>
+				<ol>
+					<li>No Homicide happened on October 2019</li>
+					<li>Overall, the farther north it goes, the more incident type of Weapons, Discharging a Firearm in the City Limits</li>
+					<li>Some address need to add a space so that it can be searched in nominatim. e.g 430 DOROTHY DAY PL, St.Paul, Minnesota</li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ol>
 			</div>
 		</div>
 
 		<!-- FOOTER PAGE -->
 		<div class="row">
 			<div class="twelve columns footer">
-				<p class="footertext">For CISC 375</p>
+				<p class="footertext">For CISC 375, Fall 2019 |  <a href="https://github.com/yang7656/Dynamic-Web-Application">GitHub Project Here</a></p>
 			</div>
 		</div>		
 	</div>
