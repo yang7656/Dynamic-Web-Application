@@ -197,6 +197,7 @@ function Init(crime_api_url) {
         mymap.on("moveend", function() {
             
             var tem = {};
+            var newCommited = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             
             if (app.addressDiv === true) {
                 var centerLatLng = mymap.getCenter();
@@ -219,6 +220,21 @@ function Init(crime_api_url) {
                 }
             }
             app.stpaulcrimes = tem;
+            
+            // new number commit in neighborhoods
+            for (var key in app.stpaulcrimes) {
+                newCommited[app.stpaulcrimes[key].neighborhood_number-1]++;
+            }
+            // marker1.dragging._marker._popup._content
+            for (let i = 0; i < mrker_list.length; i++) {
+                var content = mrker_list[i].dragging._marker._popup._content.split(' ');
+                var newContent = '' + newCommited[i] + ' ';
+                for (let j = 1; j < content.length; j++) {
+                    newContent += content[j] + ' ';
+                }
+                mrker_list[i].dragging._marker._popup._content = newContent;
+            }
+            
         });
     });
     

@@ -136,20 +136,20 @@
 			<div class="row">
 				<dir class="twelve columns" style="padding: 0 0; margin: 0">
 					<div class="checkbox">
-						<input type="checkbox" value="Homicide " class="crime_option" checked> Murder 
-						<input type="checkbox" value="Rape" class="crime_option" checked> Rape 
-						<input type="checkbox" value="Robbery" class="crime_option" checked> Robbery 
-						<input type="checkbox" value="Assault" class="crime_option" checked> Assault 
-						<input type="checkbox" value="Burglary" class="crime_option" checked> Burglary 
-						<input type="checkbox" value="Theft" class="crime_option" checked> Theft 
-						<input type="checkbox" value="Assoult" class="crime_option" checked> Assoult
-						<input type="checkbox" value="Arson" class="crime_option" checked> Arson 
-						<input type="checkbox" value="Vandalism " class="crime_option" checked> Damage 
-						<input type="checkbox" value="Graffiti" class="crime_option" checked> Graffiti 
-						<input type="checkbox" value="Narcotics" class="crime_option" checked> Narcotics 
-						<input type="checkbox" value="Discharge " class="crime_option" checked> Weapons 
-						<input type="checkbox" value="Police Visit" class="crime_option" checked> Police Visit 
-						<input type="checkbox" value="Community Event" class="crime_option" checked> Community Event 
+						<input type="checkbox" value="Homicide " class="crime_option" checked @change="SearchUpper"> Murder 
+						<input type="checkbox" value="Rape" class="crime_option" checked @change="SearchUpper"> Rape 
+						<input type="checkbox" value="Robbery" class="crime_option" checked @change="SearchUpper"> Robbery 
+						<input type="checkbox" value="Assault" class="crime_option" checked @change="SearchUpper"> Assault 
+						<input type="checkbox" value="Burglary" class="crime_option" checked @change="SearchUpper"> Burglary 
+						<input type="checkbox" value="Theft" class="crime_option" checked @change="SearchUpper"> Theft 
+						<input type="checkbox" value="Assoult" class="crime_option" checked @change="SearchUpper"> Assoult
+						<input type="checkbox" value="Arson" class="crime_option" checked @change="SearchUpper"> Arson 
+						<input type="checkbox" value="Vandalism " class="crime_option" checked @change="SearchUpper"> Damage 
+						<input type="checkbox" value="Graffiti" class="crime_option" checked @change="SearchUpper"> Graffiti 
+						<input type="checkbox" value="Narcotics" class="crime_option" checked @change="SearchUpper"> Narcotics 
+						<input type="checkbox" value="Discharge " class="crime_option" checked @change="SearchUpper"> Weapons 
+						<input type="checkbox" value="Police Visit" class="crime_option" checked @change="SearchUpper"> Police Visit 
+						<input type="checkbox" value="Community Event" class="crime_option" checked @change="SearchUpper"> Community Event 
                         <input type="checkbox" class="select_all_crimes" checked @change="clickAllCrime"> (All)
 					</div>
 				</dir>
@@ -157,23 +157,23 @@
 			<div class="row">
 				<dir class="twelve columns" style="padding: 0 0; margin: 0">
 					<div class="checkbox">
-						<input type="checkbox" value="1" class="neighbor_option" checked> Conway/Battlecreek/Highwood 
-						<input type="checkbox" value="2" class="neighbor_option" checked> Greater East Side 
-						<input type="checkbox" value="3" class="neighbor_option" checked> West Side 
-						<input type="checkbox" value="4" class="neighbor_option" checked> Dayton's Bluff 
-						<input type="checkbox" value="5" class="neighbor_option" checked> Payne/Phalen 
-						<input type="checkbox" value="6" class="neighbor_option" checked> North End 
-						<input type="checkbox" value="7" class="neighbor_option" checked> Thomas/Dale(Frogtown) 
-						<input type="checkbox" value="8" class="neighbor_option" checked> Summit/University 
-						<input type="checkbox" value="9" class="neighbor_option" checked> West Seventh 
-						<input type="checkbox" value="10" class="neighbor_option" checked> Como 
-						<input type="checkbox" value="11" class="neighbor_option" checked> Hamline/Midway 
-						<input type="checkbox" value="12" class="neighbor_option" checked> St. Anthony 
-						<input type="checkbox" value="13" class="neighbor_option" checked> Union Park 
-						<input type="checkbox" value="14" class="neighbor_option" checked> Macalester-Groveland 
-						<input type="checkbox" value="15" class="neighbor_option" checked> Highland 
-						<input type="checkbox" value="16" class="neighbor_option" checked> Summit Hill
-						<input type="checkbox" value="17" class="neighbor_option" checked> Capitol River
+						<input type="checkbox" value="1" class="neighbor_option" checked @change="SearchUpper"> Conway/Battlecreek/Highwood 
+						<input type="checkbox" value="2" class="neighbor_option" checked @change="SearchUpper"> Greater East Side 
+						<input type="checkbox" value="3" class="neighbor_option" checked @change="SearchUpper"> West Side 
+						<input type="checkbox" value="4" class="neighbor_option" checked @change="SearchUpper"> Dayton's Bluff 
+						<input type="checkbox" value="5" class="neighbor_option" checked @change="SearchUpper"> Payne/Phalen 
+						<input type="checkbox" value="6" class="neighbor_option" checked @change="SearchUpper"> North End 
+						<input type="checkbox" value="7" class="neighbor_option" checked @change="SearchUpper"> Thomas/Dale(Frogtown) 
+						<input type="checkbox" value="8" class="neighbor_option" checked @change="SearchUpper"> Summit/University 
+						<input type="checkbox" value="9" class="neighbor_option" checked @change="SearchUpper"> West Seventh 
+						<input type="checkbox" value="10" class="neighbor_option" checked @change="SearchUpper"> Como 
+						<input type="checkbox" value="11" class="neighbor_option" checked @change="SearchUpper"> Hamline/Midway 
+						<input type="checkbox" value="12" class="neighbor_option" checked @change="SearchUpper"> St. Anthony 
+						<input type="checkbox" value="13" class="neighbor_option" checked @change="SearchUpper"> Union Park 
+						<input type="checkbox" value="14" class="neighbor_option" checked @change="SearchUpper"> Macalester-Groveland 
+						<input type="checkbox" value="15" class="neighbor_option" checked @change="SearchUpper"> Highland 
+						<input type="checkbox" value="16" class="neighbor_option" checked @change="SearchUpper"> Summit Hill
+						<input type="checkbox" value="17" class="neighbor_option" checked @change="SearchUpper"> Capitol River
                         <input type="checkbox" class="select_all_neighbor" checked @change="clickAllNeighbor"> (All)
 					</div>
 				</dir>
