@@ -23,11 +23,11 @@
 	<link rel="icon" type="image/png" href="images/favicon.png">
 	<!-- IMPORTING APIs -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
+     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+     crossorigin=""/>
 	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
+     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+     crossorigin=""></script>
     <!-- Internal js -->
 	<script type="text/javascript" src="script/scripts.js"></script>
     
@@ -63,7 +63,7 @@
 
 <body onload="Prompt()">
     
-    <!-- Prompt -->
+    <!-- Prompt     URL for St. Paul Crime API:                  -->
     <div id="dialog-form">
         <label for="name">URL for St. Paul Crime API:</label>
         <input type="text" id="prompt_input" class="text ui-widget-content ui-corner-all" style="width: 320px;"/>
@@ -136,64 +136,70 @@
 			<div class="row">
 				<dir class="twelve columns" style="padding: 0 0; margin: 0">
 					<div class="checkbox">
-						<input type="checkbox" value="Homicide " v-model="crimeSelected"> Murder 
-						<input type="checkbox" value="Rape" v-model="crimeSelected"> Rape 
-						<input type="checkbox" value="Robbery" v-model="crimeSelected"> Robbery 
-						<input type="checkbox" value="Assault" v-model="crimeSelected"> Assault 
-						<input type="checkbox" value="Burglary" v-model="crimeSelected"> Burglary 
-						<input type="checkbox" value="Theft" v-model="crimeSelected"> Theft 
-						<input type="checkbox" value="Assoult" v-model="crimeSelected"> Assoult
-						<input type="checkbox" value="Arson" v-model="crimeSelected"> Arson 
-						<input type="checkbox" value="Vandalism " v-model="crimeSelected"> Damage 
-						<input type="checkbox" value="Graffiti" v-model="crimeSelected"> Graffiti 
-						<input type="checkbox" value="Narcotics" v-model="crimeSelected"> Narcotics 
-						<input type="checkbox" value="Discharge " v-model="crimeSelected"> Weapons 
-						<input type="checkbox" value="Police Visit" v-model="crimeSelected"> Police Visit 
-						<input type="checkbox" value="Community Event" v-model="crimeSelected"> Community Event 
+						<input type="checkbox" value="Homicide " class="crime_option" checked> Murder 
+						<input type="checkbox" value="Rape" class="crime_option" checked> Rape 
+						<input type="checkbox" value="Robbery" class="crime_option" checked> Robbery 
+						<input type="checkbox" value="Assault" class="crime_option" checked> Assault 
+						<input type="checkbox" value="Burglary" class="crime_option" checked> Burglary 
+						<input type="checkbox" value="Theft" class="crime_option" checked> Theft 
+						<input type="checkbox" value="Assoult" class="crime_option" checked> Assoult
+						<input type="checkbox" value="Arson" class="crime_option" checked> Arson 
+						<input type="checkbox" value="Vandalism " class="crime_option" checked> Damage 
+						<input type="checkbox" value="Graffiti" class="crime_option" checked> Graffiti 
+						<input type="checkbox" value="Narcotics" class="crime_option" checked> Narcotics 
+						<input type="checkbox" value="Discharge " class="crime_option" checked> Weapons 
+						<input type="checkbox" value="Police Visit" class="crime_option" checked> Police Visit 
+						<input type="checkbox" value="Community Event" class="crime_option" checked> Community Event 
+                        <input type="checkbox" class="select_all_crimes" checked @change="clickAllCrime"> (All)
 					</div>
 				</dir>
 			</div>
 			<div class="row">
 				<dir class="twelve columns" style="padding: 0 0; margin: 0">
 					<div class="checkbox">
-						<input type="checkbox" value="1" v-model="neighSelected"> Conway/Battlecreek/Highwood 
-						<input type="checkbox" value="2" v-model="neighSelected"> Greater East Side 
-						<input type="checkbox" value="3" v-model="neighSelected"> West Side 
-						<input type="checkbox" value="4" v-model="neighSelected"> Dayton's Bluff 
-						<input type="checkbox" value="5" v-model="neighSelected"> Payne/Phalen 
-						<input type="checkbox" value="6" v-model="neighSelected"> North End 
-						<input type="checkbox" value="7" v-model="neighSelected"> Thomas/Dale(Frogtown) 
-						<input type="checkbox" value="8" v-model="neighSelected"> Summit/University 
-						<input type="checkbox" value="9" v-model="neighSelected"> West Seventh 
-						<input type="checkbox" value="10" v-model="neighSelected"> Como 
-						<input type="checkbox" value="11" v-model="neighSelected"> Hamline/Midway 
-						<input type="checkbox" value="12" v-model="neighSelected"> St. Anthony 
-						<input type="checkbox" value="13" v-model="neighSelected"> Union Park 
-						<input type="checkbox" value="14" v-model="neighSelected"> Macalester-Groveland 
-						<input type="checkbox" value="15" v-model="neighSelected"> Highland 
-						<input type="checkbox" value="16" v-model="neighSelected"> Summit Hill
-						<input type="checkbox" value="17" v-model="neighSelected"> Capitol River
+						<input type="checkbox" value="1" class="neighbor_option" checked> Conway/Battlecreek/Highwood 
+						<input type="checkbox" value="2" class="neighbor_option" checked> Greater East Side 
+						<input type="checkbox" value="3" class="neighbor_option" checked> West Side 
+						<input type="checkbox" value="4" class="neighbor_option" checked> Dayton's Bluff 
+						<input type="checkbox" value="5" class="neighbor_option" checked> Payne/Phalen 
+						<input type="checkbox" value="6" class="neighbor_option" checked> North End 
+						<input type="checkbox" value="7" class="neighbor_option" checked> Thomas/Dale(Frogtown) 
+						<input type="checkbox" value="8" class="neighbor_option" checked> Summit/University 
+						<input type="checkbox" value="9" class="neighbor_option" checked> West Seventh 
+						<input type="checkbox" value="10" class="neighbor_option" checked> Como 
+						<input type="checkbox" value="11" class="neighbor_option" checked> Hamline/Midway 
+						<input type="checkbox" value="12" class="neighbor_option" checked> St. Anthony 
+						<input type="checkbox" value="13" class="neighbor_option" checked> Union Park 
+						<input type="checkbox" value="14" class="neighbor_option" checked> Macalester-Groveland 
+						<input type="checkbox" value="15" class="neighbor_option" checked> Highland 
+						<input type="checkbox" value="16" class="neighbor_option" checked> Summit Hill
+						<input type="checkbox" value="17" class="neighbor_option" checked> Capitol River
+                        <input type="checkbox" class="select_all_neighbor" checked @change="clickAllNeighbor"> (All)
 					</div>
 				</dir>
 			</div>
 			<div class="row">
-				<div class="three columns" style="{color: grey} :hover{color: black}">
+				<div class="two columns" style="{color: grey} :hover{color: black}">
 					<label class="samefont">From date</label>
-					<input type="date" min="2014-01-01" max="2019-10-31" height="5" name="box" v-model="searchStartDate" v-on:keyup.enter="SearchUpper">
+					<input type="date" min="2014-01-01" max="2019-10-31" height="5" name="box" v-model="searchStartDate">
 				</div>
-				<div class="three columns">
+				<div class="two columns">
 					<label class="samefont">To date</label>
-					<input type="date" min="2014-01-01" max="2019-10-31" height="5" name="box" v-model="searchEndDate" v-on:keyup.enter="SearchUpper">
+					<input type="date" min="2014-01-01" max="2019-10-31" height="5" name="box" v-model="searchEndDate">
 				</div>
-				<div class="three columns">
+				<div class="two columns">
 					<label class="samefont">Search start time</label>
-					<input type="time" height="5" name="startT" v-model="searchStartTime" v-on:keyup.enter="SearchStartTime" autocomplete="on">
+					<input type="time" height="5" name="startT" v-model="searchStartTime" autocomplete="on">
 				</div>
-                <div class="three columns">
+                <div class="two columns">
 					<label class="samefont">Search end time</label>
-					<input type="time" height="5" name="endT" v-model="searchEndTime" v-on:keyup.enter="SearchEndTime" autocomplete="on">
+					<input type="time" height="5" name="endT" v-model="searchEndTime" autocomplete="on">
 				</div>
-				<div class="three columns"><button type="button" @click="SearchUpper" id="buttonUpper"> SUBMIT </button></div>
+                <!-- submit button -->
+				<div class="four columns">
+                    <button type="button" @click="SearchUpper" id="buttonUpper">SUBMIT</button>
+                </div>
+                
 			</div>
 			<div class="row">
 				<div class="twelve columns">
@@ -204,44 +210,47 @@
 				<div class="twelve columns">
 					<!-- SEARCH TABLE -->
 					<table style="width:100%; font-size: 12px">
-					  <thead>
-					    <th>Date</th>
-					    <th>Time</th>
-					    <th>Block</th>
-					    <th>Incident Type</th>
-					    <th>Incident</th>
-					    <th>Neighborhoods</th>
-					    <th>Police Grid</th>
-					  </thead>
-					  <tbody v-for="crime in stpaulcrimes" v-for="neighbor in Neighborhoods" v-for="code in Codes">
-						<tr v-if="crime.color==='#d9d366'" bgcolor='#d9d366' v-on:click="Visualize($event, crime.block, crime.date, crime.time, crime.incident)" id="tableCrime">
-                            <td>{{crime.date}}</td>
-                            <td>{{crime.time}}</td>
-                            <td>{{crime.block}}</td>
-                            <td>{{Codes['C'+crime.code]}}</td>
-                            <td>{{crime.incident}}</td>
-                            <td>{{Neighborhoods['N'+crime.neighborhood_number]}}</td>
-                            <td>{{crime.police_grid}}</td>
-						</tr>
-                        <tr v-if="crime.color==='#d6a7a7'" bgcolor='#d6a7a7' v-on:click="Visualize($event, crime.block, crime.date, crime.time, crime.incident)" id="tableCrime">
-                            <td>{{crime.date}}</td>
-                            <td>{{crime.time}}</td>
-                            <td>{{crime.block}}</td>
-                            <td>{{Codes['C'+crime.code]}}</td>
-                            <td>{{crime.incident}}</td>
-                            <td>{{Neighborhoods['N'+crime.neighborhood_number]}}</td>
-                            <td>{{crime.police_grid}}</td>
-						</tr>
-                        <tr v-if="crime.color==='#66a9d9'" bgcolor='#66a9d9' v-on:click="Visualize($event, crime.block, crime.date, crime.time, crime.incident)" id="tableCrime">
-                            <td>{{crime.date}}</td>
-                            <td>{{crime.time}}</td>
-                            <td>{{crime.block}}</td>
-                            <td>{{Codes['C'+crime.code]}}</td>
-                            <td>{{crime.incident}}</td>
-                            <td>{{Neighborhoods['N'+crime.neighborhood_number]}}</td>
-                            <td>{{crime.police_grid}}</td>
-						</tr>
-					  </tbody>
+					    <thead>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Block</th>
+                            <th>Incident Type</th>
+                            <th>Incident</th>
+                            <th>Neighborhoods</th>
+                            <th>Police Grid</th>
+					    </thead>
+                        <template>
+                            <tbody v-for="crime in stpaulcrimes" v-for="neighbor in Neighborhoods" v-for="code in Codes">
+                                <tr v-if="crime.color==='#d9d366'" bgcolor='#d9d366' v-on:click="Visualize($event, crime.block, crime.date, crime.time, crime.incident)" id="tableCrime">
+                                    <td>{{crime.date}}</td>
+                                    <td>{{crime.time}}</td>
+                                    <td>{{crime.block}}</td>
+                                    <td>{{Codes['C'+crime.code]}}</td>
+                                    <td>{{crime.incident}}</td>
+                                    <td>{{Neighborhoods['N'+crime.neighborhood_number]}}</td>
+                                    <td>{{crime.police_grid}}</td>
+                                </tr>
+                                <tr v-if="crime.color==='#d6a7a7'" bgcolor='#d6a7a7' v-on:click="Visualize($event, crime.block, crime.date, crime.time, crime.incident)" id="tableCrime">
+                                    <td>{{crime.date}}</td>
+                                    <td>{{crime.time}}</td>
+                                    <td>{{crime.block}}</td>
+                                    <td>{{Codes['C'+crime.code]}}</td>
+                                    <td>{{crime.incident}}</td>
+                                    <td>{{Neighborhoods['N'+crime.neighborhood_number]}}</td>
+                                    <td>{{crime.police_grid}}</td>
+                                </tr>
+                                <tr v-if="crime.color==='#66a9d9'" bgcolor='#66a9d9' v-on:click="Visualize($event, crime.block, crime.date, crime.time, crime.incident)" id="tableCrime">
+                                    <td>{{crime.date}}</td>
+                                    <td>{{crime.time}}</td>
+                                    <td>{{crime.block}}</td>
+                                    <td>{{Codes['C'+crime.code]}}</td>
+                                    <td>{{crime.incident}}</td>
+                                    <td>{{Neighborhoods['N'+crime.neighborhood_number]}}</td>
+                                    <td>{{crime.police_grid}}</td>
+                                </tr>
+                            </tbody>
+                        </template>
+                        
 					</table>
 				</div>				
 			</div>

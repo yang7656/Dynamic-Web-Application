@@ -8,10 +8,13 @@ var latlng;
 var addressLat;
 var addressLng;
 var currentAddress;
+var crimeURL;
+var mrker_list = [];
 
 //function Init(crime_api_url) {
 function Init(crime_api_url) {
-    console.log(crime_api_url);
+    
+    crimeURL = crime_api_url;
 	// VUE
 	app = new Vue({
 		el: '#app',
@@ -28,17 +31,16 @@ function Init(crime_api_url) {
                 { value: "address", text: "address" },
                 { value: "latlong", text: "latlong" }
             ],
-            stpaulcrimes: [],
+            stpaulcrimes: {},
+            stpaulcrimesBackup: {},
             Codes: [],
             Neighborhoods: [],
             currentCoordinate: [],
+            commited: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             searchStartDate: "",
             searchEndDate: "",
             searchStartTime: "",
-            searchEndTime: "",
-            crimeSelected: [],
-            neighSelected: [],
-            unchangeCrime: []
+            searchEndTime: ""
         },
         methods:{
 	        showMap: function(){
@@ -53,7 +55,31 @@ function Init(crime_api_url) {
 	        	} else {
 	        		this.addressDiv = true;
 	        	}
-	        }
+	        },
+            clickAllNeighbor: function() {
+                if ($(".select_all_neighbor")[0].checked) {
+                    for (let i = 0; i < $(".neighbor_option").length; i++) {
+                        $(".neighbor_option")[i].checked = true;
+                    }
+                }
+                else {
+                    for (let i = 0; i < $(".neighbor_option").length; i++) {
+                        $(".neighbor_option")[i].checked = false;
+                    }
+                }
+            },
+            clickAllCrime: function() {
+                if ($(".select_all_crimes")[0].checked) {
+                    for (let i = 0; i < $(".crime_option").length; i++) {
+                        $(".crime_option")[i].checked = true;
+                    }
+                }
+                else {
+                    for (let i = 0; i < $(".crime_option").length; i++) {
+                        $(".crime_option")[i].checked = false;
+                    }
+                }
+            }
     	}
 	});
     
@@ -74,25 +100,15 @@ function Init(crime_api_url) {
 	}).addTo(mymap);
 	mymap.setMaxBounds(mybounds);//mymap.getBounds());
     
-    
 	//DATA FOR TABLE
-    
-    //$.getJSON('http://cisc-dean.stthomas.edu:8036/incidents', (data)=> {
-    $.getJSON(crime_api_url+'/incidents', (allData)=> {
-        unchangeCrime = allData;
-    });
-    
-    //$.getJSON('http://cisc-dean.stthomas.edu:8036/incidents?start_date=2019-10-01&end_date=2019-10-31', (data)=> {
     $.getJSON(crime_api_url + '/incidents?start_date=2019-10-01&end_date=2019-10-31', (data)=> {
         
         app.stpaulcrimes = data;
-
-        var commited = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        app.stpaulcrimesBackup = data;
         var centerOfNeighbor = [];
-        var tem = {};
         
         for (var key in data) {
-            commited[data[key].neighborhood_number-1]++;
+            app.commited[data[key].neighborhood_number-1]++;
             
             if (data[key].incident.includes("Homicide") || data[key].incident.includes("Rape") || data[key].incident.includes("Assault") || data[key].incident.includes("Asasult") || data[key].incident.includes("Discharge")) {
                 app.stpaulcrimes[key].color = '#d9d366';
@@ -108,60 +124,79 @@ function Init(crime_api_url) {
         // 17 neighborhoods
         // 1|Conway/Battlecreek/Highwood; 44.956758, -93.015139
         centerOfNeighbor.push([44.956758, -93.015139]);
-        L.marker([44.956758, -93.015139]).addTo(mymap).bindPopup(commited[0]+' crimes commited').openPopup();
+        var marker1 = L.marker([44.956758, -93.015139]).addTo(mymap).bindPopup(app.commited[0]+' crimes commited in Conway').openPopup();
         // 2|Greater East Side; 44.977519, -93.025290
         centerOfNeighbor.push([44.977519, -93.025290]);
-        L.marker([44.977519, -93.025290]).addTo(mymap).bindPopup(commited[1]+' crimes commited').openPopup();
+        var marker2 = L.marker([44.977519, -93.025290]).addTo(mymap).bindPopup(app.commited[1]+' crimes commited in Greater East Side').openPopup();
         // 3|West Side; 44.931369, -93.082249
         centerOfNeighbor.push([44.931369, -93.082249]);
-        L.marker([44.931369, -93.082249]).addTo(mymap).bindPopup(commited[2]+' crimes commited').openPopup();
+        var marker3 = L.marker([44.931369, -93.082249]).addTo(mymap).bindPopup(app.commited[2]+' crimes commited in West Side').openPopup();
         // 4|Dayton's Bluff; 44.957164, -93.057100
         centerOfNeighbor.push([44.957164, -93.057100]);
-        L.marker([44.957164, -93.057100]).addTo(mymap).bindPopup(commited[3]+' crimes commited').openPopup();
+        var marker4 = L.marker([44.957164, -93.057100]).addTo(mymap).bindPopup(app.commited[3]+" crimes commited in Dayton's Bluff").openPopup();
         // 5|Payne/Phalen; 44.978208, -93.069673
         centerOfNeighbor.push([44.978208, -93.069673]);
-        L.marker([44.978208, -93.069673]).addTo(mymap).bindPopup(commited[4]+' crimes commited').openPopup();
+        var marker5 = L.marker([44.978208, -93.069673]).addTo(mymap).bindPopup(app.commited[4]+' crimes commited in Payne/Phalen').openPopup();
         // 6|North End; 44.977405, -93.110969
         centerOfNeighbor.push([44.977405, -93.110969]);
-        L.marker([44.977405, -93.110969]).addTo(mymap).bindPopup(commited[5]+' crimes commited').openPopup();
+        var marker6 = L.marker([44.977405, -93.110969]).addTo(mymap).bindPopup(app.commited[5]+' crimes commited in North End').openPopup();
         // 7|Thomas/Dale(Frogtown); 44.960265, -93.118686
         centerOfNeighbor.push([44.960265, -93.118686]);
-        L.marker([44.960265, -93.118686]).addTo(mymap).bindPopup(commited[6]+' crimes commited').openPopup();
+        var marker7 = L.marker([44.960265, -93.118686]).addTo(mymap).bindPopup(app.commited[6]+' crimes commited in Thomas/Dale(Frogtown)').openPopup();
         // 8|Summit/University; 44.948581, -93.128205
         centerOfNeighbor.push([44.948581, -93.128205]);
-        L.marker([44.948581, -93.128205]).addTo(mymap).bindPopup(commited[7]+' crimes commited').openPopup();
+        var marker8 = L.marker([44.948581, -93.128205]).addTo(mymap).bindPopup(app.commited[7]+' crimes commited in Summit/University').openPopup();
         // 9|West Seventh; 44.931735, -93.119224
         centerOfNeighbor.push([44.931735, -93.119224]);
-        L.marker([44.931735, -93.119224]).addTo(mymap).bindPopup(commited[8]+' crimes commited').openPopup();
+        var marker9 = L.marker([44.931735, -93.119224]).addTo(mymap).bindPopup(app.commited[8]+' crimes commited in West Seventh').openPopup();
         // 10|Como; 44.982860, -93.150844
         centerOfNeighbor.push([44.982860, -93.150844]);
-        L.marker([44.982860, -93.150844]).addTo(mymap).bindPopup(commited[9]+' crimes commited').openPopup();
+        var marker10 = L.marker([44.982860, -93.150844]).addTo(mymap).bindPopup(app.commited[9]+' crimes commited in Como').openPopup();
         // 11|Hamline/Midway; 44.962891, -93.167436
         centerOfNeighbor.push([44.962891, -93.167436]);
-        L.marker([44.962891, -93.167436]).addTo(mymap).bindPopup(commited[10]+' crimes commited').openPopup();
+        var marker11 = L.marker([44.962891, -93.167436]).addTo(mymap).bindPopup(app.commited[10]+' crimes commited in Hamline/Midway').openPopup();
         // 12|St. Anthony; 44.973546, -93.195991
         centerOfNeighbor.push([44.973546, -93.195991]);
-        L.marker([44.973546, -93.195991]).addTo(mymap).bindPopup(commited[11]+' crimes commited').openPopup();
+        var marker12 = L.marker([44.973546, -93.195991]).addTo(mymap).bindPopup(app.commited[11]+' crimes commited in St. Anthony').openPopup();
         // 13|Union Park; 44.948401, -93.174050
         centerOfNeighbor.push([44.948401, -93.174050]);
-        L.marker([44.948401, -93.174050]).addTo(mymap).bindPopup(commited[12]+' crimes commited').openPopup();
+        var marker13 = L.marker([44.948401, -93.174050]).addTo(mymap).bindPopup(app.commited[12]+' crimes commited in Union Park').openPopup();
         // 14|Macalester-Groveland; 44.934301, -93.175363
         centerOfNeighbor.push([44.934301, -93.175363]);
-        L.marker([44.934301, -93.175363]).addTo(mymap).bindPopup(commited[13]+' crimes commited').openPopup();
+        var marker14 = L.marker([44.934301, -93.175363]).addTo(mymap).bindPopup(app.commited[13]+' crimes commited in Macalester-Groveland').openPopup();
         // 15|Highland; 44.911489, -93.172075
         centerOfNeighbor.push([44.911489, -93.172075]);
-        L.marker([44.911489, -93.172075]).addTo(mymap).bindPopup(commited[14]+' crimes commited').openPopup();
+        var marker15 = L.marker([44.911489, -93.172075]).addTo(mymap).bindPopup(app.commited[14]+' crimes commited in Highland').openPopup();
         // 16|Summit Hill; 44.937493, -93.136353
         centerOfNeighbor.push([44.937493, -93.136353]);
-        L.marker([44.937493, -93.136353]).addTo(mymap).bindPopup(commited[15]+' crimes commited').openPopup();
+        var marker16 = L.marker([44.937493, -93.136353]).addTo(mymap).bindPopup(app.commited[15]+' crimes commited in Summit Hill').openPopup();
         // 17|Capitol River; 44.950459, -93.096462
         centerOfNeighbor.push([44.950459, -93.096462]);
-        L.marker([44.950459, -93.096462]).addTo(mymap).bindPopup(commited[16]+' crimes commited').openPopup();
+        var marker17 = L.marker([44.950459, -93.096462]).addTo(mymap).bindPopup(app.commited[16]+' crimes commited in Capitol River').openPopup();
+        
+        // list contain all markers
+        mrker_list.push(marker1);
+        mrker_list.push(marker2);
+        mrker_list.push(marker3);
+        mrker_list.push(marker4);
+        mrker_list.push(marker5);
+        mrker_list.push(marker6);
+        mrker_list.push(marker7);
+        mrker_list.push(marker8);
+        mrker_list.push(marker9);
+        mrker_list.push(marker10);
+        mrker_list.push(marker11);
+        mrker_list.push(marker12);
+        mrker_list.push(marker13);
+        mrker_list.push(marker14);
+        mrker_list.push(marker15);
+        mrker_list.push(marker16);
+        mrker_list.push(marker17);
         
         // latlng in box after pan
         mymap.on("moveend", function() {
             
-            tem = {};
+            var tem = {};
             
             if (app.addressDiv === true) {
                 var centerLatLng = mymap.getCenter();
@@ -187,12 +222,10 @@ function Init(crime_api_url) {
         });
     });
     
-    //$.getJSON('http://cisc-dean.stthomas.edu:8036/codes', (codes)=> {
     $.getJSON(crime_api_url+'/codes', (codes)=> {
     	app.Codes = codes;
     });
     
-    //$.getJSON('http://cisc-dean.stthomas.edu:8036/neighborhoods', (neighborhoods)=> {
     $.getJSON(crime_api_url+'/neighborhoods', (neighborhoods)=> {
         app.Neighborhoods = neighborhoods;
     });
@@ -213,6 +246,7 @@ function insideArea(viewBounds, point_lat, point_lng) {
 }
 
 function Search(event) {
+    
 	var queryNominatim = 'https://nominatim.openstreetmap.org/search?';
     
 	if (app.searchType === 'select' || app.searchType === 'address') {
@@ -234,31 +268,40 @@ function Search(event) {
 
 	    $.ajax(request).then(() => {
 	    	latlng = L.latLng(addressLat, addressLng);
-			//mymap.flyTo(latlng, 18);
 			mymap.setView(latlng, 18);
 	    });
 	}
 
 	if (app.searchType === 'latlong') {
-		/*if ((app.userLat>=44.888027 && app.userLat<=44.992017) 
-			&& (app.userLng>=-93.208156 && app.userLng<=-93.004975)) {*/
-			latlng = L.latLng(app.userLat, app.userLng);
-			//mymap.flyTo(latlng, 18);
-
-			mymap.setView(latlng, 18)
-		//}
+        latlng = L.latLng(app.userLat, app.userLng);
+        mymap.setView(latlng, 18)
 	}
 	
 }
 
-function SearchUpper (event) {
+function SearchUpper(event) {
     
-    //var stpaulapi = 'http://cisc-dean.stthomas.edu:8000/incidents?';
-    //var stpaulapi = crime_api_url+'/incidents?';
-    var tem2 = {};
+    var stpaulapi = crimeURL+'/incidents?';
+    var tem = {};
     var tem1 = {};
-    var tem = app.stpaulcrimes;
+    var tem2 = {};
     var nei_num = [];
+    var crimeSelected = [];
+    var neighSelected = [];
+    var newCommited = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    
+    // what crimes are selected
+    for (let i = 0; i < $('.crime_option').length; i++) {
+        if ($('.crime_option')[i].checked) {
+            crimeSelected.push($('.crime_option')[i].value);
+        }
+    }
+    // what neighborhoods are selected
+    for (let j = 0; j < $('.neighbor_option').length; j++) {
+        if ($('.neighbor_option')[j].checked) {
+            neighSelected.push($('.neighbor_option')[j].value);
+        }
+    }
     
     if (app.searchStartDate !== '' || app.searchEndDate !== '') {
         if (app.searchStartDate !== '') {
@@ -268,151 +311,191 @@ function SearchUpper (event) {
         if (app.searchEndDate !== '') {
             stpaulapi += 'end_date=' + app.searchEndDate + '&';
         }
-        
-        $.getJSON(stpaulapi, (newDateData)=> {
-            app.stpaulcrimes = newDateData;
+        console.log(stpaulapi);
+        $.getJSON(stpaulapi, (data)=> {
+            
+            if (app.searchStartTime !== '' || app.searchEndTime !== '') {
+            
+                var startH = parseInt(app.searchStartTime.split(':')[0]),
+                    startM = parseInt(app.searchStartTime.split(':')[1]),
+                    endH = parseInt(app.searchEndTime.split(':')[0]),
+                    endM = parseInt(app.searchEndTime.split(':')[1]);
+                // 12:00 AM => 0:00 
+            
+                for (var key in data) {
+                    
+                    var keyH = parseInt(data[key].time.split(':')[0]),
+                        keyM = parseInt(data[key].time.split(':')[1]);
+                    
+                    if (keyH > startH && keyH < endH) {
+                        tem[key] = data[key];
+                    }
+                    if (keyH === startH) {
+                        if (keyM >= startM) {
+                            tem[key] = data[key];
+                        }
+                    }
+                    if (keyH === endH) {
+                        if (keyM <= endM) {
+                            tem[key] = data[key];
+                        }
+                    }
+                }
+                
+                for (var key in tem) {
+                    if (tem[key].incident.includes("Homicide") || tem[key].incident.includes("Rape") || tem[key].incident.includes("Assault") || tem[key].incident.includes("Asasult") || tem[key].incident.includes("Discharge")) {
+                        tem[key].color = '#d9d366';
+                    }
+                    else if (tem[key].incident.includes("Robbery") || tem[key].incident.includes("Theft") || tem[key].incident.includes("Burglary") || tem[key].incident.includes("Arson") || tem[key].incident.includes("Vandalism") || tem[key].incident.includes("Graffiti") || tem[key].incident.includes("Narcotics")) {
+                        tem[key].color = '#d6a7a7';
+                    }
+                    else if (tem[key].incident.includes("Police") || tem[key].incident.includes("Community")) {
+                        tem[key].color = '#66a9d9';
+                    }
+                }
+            }
+            else {
+                tem = data;
+                
+                for (var key in tem) {
+                    if (tem[key].incident.includes("Homicide") || tem[key].incident.includes("Rape") || tem[key].incident.includes("Assault") || tem[key].incident.includes("Asasult") || tem[key].incident.includes("Discharge")) {
+                        tem[key].color = '#d9d366';
+                    }
+                    else if (tem[key].incident.includes("Robbery") || tem[key].incident.includes("Theft") || tem[key].incident.includes("Burglary") || tem[key].incident.includes("Arson") || tem[key].incident.includes("Vandalism") || tem[key].incident.includes("Graffiti") || tem[key].incident.includes("Narcotics")) {
+                        tem[key].color = '#d6a7a7';
+                    }
+                    else if (tem[key].incident.includes("Police") || tem[key].incident.includes("Community")) {
+                        tem[key].color = '#66a9d9';
+                    }
+                }
+            }
+            
+            for (let k = 0; k < neighSelected.length; k++) {
+                nei_num.push(parseInt(neighSelected[k], 10));
+            }
+            
+            if (crimeSelected.length > 0) {
+                for (var key in tem) {
+                    for (let i = 0; i < crimeSelected.length; i++) {
+                        if (tem[key].incident.includes(crimeSelected[i])) {
+                            tem1[key] = tem[key];
+                        }
+                    }
+                }
+            }
+            else if (crimeSelected.length === 0) {
+                tem1 = {};
+            }
+            
+            if (nei_num.length > 0) {
+                for (var keys in tem1) {
+                    for (let j = 0; j < nei_num.length; j++) {
+                        if (parseInt(tem1[keys].neighborhood_number, 10) === nei_num[j]) {
+                            tem2[keys] = tem1[keys];
+                        }
+                    }
+                }
+            }
+            else if (nei_num.length === 0) {
+                tem2 = {};
+            }
+            app.stpaulcrimes = tem2;
+            
+            // new number commit in neighborhoods
+            for (var key in app.stpaulcrimes) {
+                newCommited[app.stpaulcrimes[key].neighborhood_number-1]++;
+            }
+            // marker1.dragging._marker._popup._content
+            for (let i = 0; i < mrker_list.length; i++) {
+                var content = mrker_list[i].dragging._marker._popup._content.split(' ');
+                var newContent = '' + newCommited[i] + ' ';
+                for (let j = 1; j < content.length; j++) {
+                    newContent += content[j] + ' ';
+                }
+                mrker_list[i].dragging._marker._popup._content = newContent;
+            }
+            
         });
     }
-    
-    if (app.searchStartTime !== '' || app.searchEndTime !== '') {
-        
-        var startH = parseInt(app.searchStartTime.split(':')[0]),
-            startM = parseInt(app.searchStartTime.split(':')[1]),
-            endH = parseInt(app.searchEndTime.split(':')[0]),
-            endM = parseInt(app.searchEndTime.split(':')[1]);
-        // 12:00 AM => 0:00 
-        
-        for (var key in app.stpaulcrimes) {
+    else if (app.searchStartDate === '' && app.searchEndDate === '') {
+        // no date change filter
+        if (app.searchStartTime !== '' || app.searchEndTime !== '') {
             
-            var keyH = parseInt(tem[key].time.split(':')[0]),
-                keyM = parseInt(tem[key].time.split(':')[1]);
-            
-            if (keyH > startH && keyH < endH) {
-                tem[key] = app.stpaulcrimes[key];
-            } 
-            else if (keyH === startH || keyH === endH) {
-                if (keyM > startM && keyM < endM) {
-                    tem[key] = app.stpaulcrimes[key];
-                }
-                else if (keyM === startM || keyM === endM) {
-                    tem[key] = app.stpaulcrimes[key];
-                }
-            }
-        }
-    }
-    else {
-        tem = app.stpaulcrimes;
-    }
-    
-    for (let k = 0; k < app.neighSelected.length; k++) {
-        nei_num.push(parseInt(app.neighSelected[k], 10));
-    }
-    
-    if (app.crimeSelected.length > 0) {
-        for (var key in tem) {
-            for (let i = 0; i < app.crimeSelected.length; i++) {
-                if (tem[key].incident.includes(app.crimeSelected[i])) {
-                    tem1[key] = tem[key];
-                }
-            }
-        }
-    }
-    else {
-        tem1 = tem;
-    }
-    
-    for (var keys in tem1) {
-        for (let j = 0; j < nei_num.length; j++) {
-            if (parseInt(tem1[keys].neighborhood_number, 10) === nei_num[j]) {
-                tem2[keys] = tem1[keys];
-            }
-        }
-    }
-    
-    app.stpaulcrimes = tem2;    
-    
-    
-    
-    
-    
-    
-    
-    /*
-	var stpaulapi = 'http://localhost:8000/incidents?';
-	if (app.crimeSelected.length > 0) {
-		stpaulapi += 'code=';
-		for (let i = 0; i < app.crimeSelected.length; i++) {
-			if (i == app.crimeSelected.length-1) { // is last
-				stpaulapi += app.crimeSelected[i] + '&';
-			} else {
-				stpaulapi += app.crimeSelected[i] + ',';
-			}
-		}
-	} 
-
-	if (app.neighSelected.length > 0) {
-		stpaulapi += 'id=';
-		for (let i = 0; i < app.neighSelected.length; i++) {
-			if (i == app.neighSelected.length-1) { // is last
-				stpaulapi += app.neighSelected[i] + '&';
-			} else {
-				stpaulapi += app.neighSelected[i] + ',';
-			}
-		}
-	} 
-
-	if (app.searchStartDate !== '') {
-		stpaulapi += 'start_date='+app.searchStartDate+'&';
-	} 
-
-	if (app.searchEndDate !== '') {
-		stpaulapi += 'end_date='+app.searchEndDate+'&';
-	}
-	console.log(stpaulapi);
-	// Get The Search done !
-	$.getJSON(stpaulapi, (data)=> {   
+            var startH = parseInt(app.searchStartTime.split(':')[0]),
+                startM = parseInt(app.searchStartTime.split(':')[1]),
+                endH = parseInt(app.searchEndTime.split(':')[0]),
+                endM = parseInt(app.searchEndTime.split(':')[1]);
+            // 12:00 AM => 0:00 
         
-        var temporary = {};
-        //console.log(app.searchTime);
-        if (app.searchStartTime !== '' && app.searchEndTime !== '') {
-            // adjusting time
-            startArr =app.searchStartTime.split(':');
-            endArr =app.searchEndTime.split(':');
-            if(startArr.length == 2) {
-                //app.searchStartTime += ':00';
-                app.searchStartTime = startArr[0] + startArr[1] + '00';
-                parseInt(app.searchStartTime);
-            }
-            if(startArr.length == 0) {
-                app.searchStartTime = startArr[0] + '0000';
-                parseInt(app.searchStartTime);
-            }
-            if(endArr.length == 2) {
-                //app.searchStartTime += ':00';
-                app.searchEndTime = endArr[0] + endArr[1] + '00';
-                parseInt(app.searchEndTime);
-            }
-            if(endArr.length == 0) {
-                app.searchEndTime = endArr[0] + '0000';
-                parseInt(app.searchEndTime);
-            }
-
-            for (var key in data) {
-                let timeData = data[key].time.split('.');
-                var ti = timeData[0];
-                if (ti >= app.searchStartTime && ti<=app.searchEndTime) {
-                    temporary[key] = data[key];
+            for (var key in app.stpaulcrimesBackup) {
+                
+                var keyH = parseInt(app.stpaulcrimesBackup[key].time.split(':')[0]),
+                    keyM = parseInt(app.stpaulcrimesBackup[key].time.split(':')[1]);
+                
+                if (keyH > startH && keyH < endH) {
+                    tem[key] = app.stpaulcrimesBackup[key];
+                }
+                if (keyH === startH) {
+                    if (keyM >= startM) {
+                        tem[key] = app.stpaulcrimesBackup[key];
+                    }
+                }
+                if (keyH === endH) {
+                    if (keyM <= endM) {
+                        tem[key] = app.stpaulcrimesBackup[key];
+                    }
                 }
             }
-            
-            app.stpaulcrimes = temporary;
-        } else {
-            console.log(data);
-            app.stpaulcrimes = data;
-
         }
-    });
-    */
+        else {
+            tem = app.stpaulcrimesBackup;
+        }
+        
+        for (let k = 0; k < neighSelected.length; k++) {
+            nei_num.push(parseInt(neighSelected[k], 10));
+        }
+        
+        if (crimeSelected.length > 0) {
+            for (var key in tem) {
+                for (let i = 0; i < crimeSelected.length; i++) {
+                    if (tem[key].incident.includes(crimeSelected[i])) {
+                        tem1[key] = tem[key];
+                    }
+                }
+            }
+        }
+        else if (crimeSelected.length === 0) {
+            tem1 = {};
+        }
+        
+        if (nei_num.length > 0) {
+            for (var keys in tem1) {
+                for (let j = 0; j < nei_num.length; j++) {
+                    if (parseInt(tem1[keys].neighborhood_number, 10) === nei_num[j]) {
+                        tem2[keys] = tem1[keys];
+                    }
+                }
+            }
+        }
+        else if (nei_num.length === 0) {
+            tem2 = {};
+        }
+        app.stpaulcrimes = tem2;
+    }
+    
+    // new number commit in neighborhoods
+    for (var key in app.stpaulcrimes) {
+        newCommited[app.stpaulcrimes[key].neighborhood_number-1]++;
+    }
+    // marker1.dragging._marker._popup._content
+    for (let i = 0; i < mrker_list.length; i++) {
+        var content = mrker_list[i].dragging._marker._popup._content.split(' ');
+        var newContent = '' + newCommited[i] + ' ';
+        for (let j = 1; j < content.length; j++) {
+            newContent += content[j] + ' ';
+        }
+        mrker_list[i].dragging._marker._popup._content = newContent;
+    }
 }
 
 function getLatLng(address) {
