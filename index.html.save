@@ -1,9 +1,20 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
     
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Prompt Test</title>
+    
+    
+    
 	<title>Crimes Searcher</title>
 	<meta name="description" content="Make your search into crimes occurred in St. Paul">
 	<meta name="author" content="Luca and Shijun">
@@ -184,12 +195,12 @@
 					<input type="date" min="2014-01-01" max="2019-10-31" height="5" name="box" v-model="searchEndDate">
 				</div>
 				<div class="two columns">
-					<label class="samefont">Start time</label>
-					<input type="time" height="5" name="startT" v-model="searchStartTime" autocomplete="on" step="1">
+					<label class="samefont">Search start time</label>
+					<input type="time" height="5" name="startT" v-model="searchStartTime" autocomplete="on">
 				</div>
                 <div class="two columns">
-					<label class="samefont">End time</label>
-					<input type="time" height="5" name="endT" v-model="searchEndTime" autocomplete="on" step="1">
+					<label class="samefont">Search end time</label>
+					<input type="time" height="5" name="endT" v-model="searchEndTime" autocomplete="on">
 				</div>
                 <!-- submit button -->
 				<div class="two columns">
@@ -204,7 +215,7 @@
 			<div class="row">
 				<div class="twelve columns">
 					<!-- SEARCH TABLE -->
-					<table style="width:100%">
+					<table style="width:100%; font-size: 12px">
 					    <thead>
                             <th>Date</th>
                             <th>Time</th>
@@ -254,13 +265,13 @@
 		<!-- FOOTER PAGE -->
 		<div class="row">
 			<div class="three columns footer">
-				<div style="background-color: #d9d366; height: 50px; width: 50px; display: inline-block"></div><p style="font-size: 25px">Violent Crimes</p>
+				<div style="background-color: #d9d366; height: 50px; width: 50px; display: inline-block"></div><p>Violent Crimes</p>
 			</div>
 			<div class="three columns">
-				<div style="background-color: #d6a7a7; height: 50px; width: 50px; display: inline-block"></div><p style="font-size: 25px">Property Crimes</p>
+				<div style="background-color: #d6a7a7; height: 50px; width: 50px; display: inline-block"></div><p>Property Crimes</p>
 			</div>
 			<div class="three columns">
-				<div style="background-color: #66a9d9; height: 50px; width: 50px; display: inline-block"></div><p style="font-size: 25px">Other Crimes</p>
+				<div style="background-color: #66a9d9; height: 50px; width: 50px; display: inline-block"></div><p>Other Crimes</p>
 			</div>
 		</div>
 
